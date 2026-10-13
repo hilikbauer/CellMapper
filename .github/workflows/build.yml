@@ -6,6 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash setup.sh
+      - name: Set tile user agent
+        run: |
+          sed -i 's|userAgentValue = packageName|userAgentValue = "CellMapper/1.0 (https://github.com/hilikbauer/CellMapper)"|' app/src/main/java/com/example/cellmapper/MainActivity.kt
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
