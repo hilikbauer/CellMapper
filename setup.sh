@@ -103,6 +103,7 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.CopyrightOverlay
 import org.osmdroid.views.overlay.Overlay
 import org.osmdroid.views.overlay.ScaleBarOverlay
 import java.util.Locale
@@ -198,7 +199,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Configuration.getInstance().load(applicationContext, getSharedPreferences("osm", MODE_PRIVATE))
-        Configuration.getInstance().userAgentValue = packageName
+        Configuration.getInstance().userAgentValue = "CellMapper/2.0 (https://github.com/hilikbauer/CellMapper)"
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         tm = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
         lm = getSystemService(LOCATION_SERVICE) as LocationManager
@@ -210,7 +211,7 @@ class MainActivity : Activity() {
         }
         status = TextView(this).apply {
             setTextColor(Color.WHITE); textSize = 14f
-            text = "לחץ \"התחל מדידה\" והסתובב סביב האזור"
+            text = "גרסה 2 - לחץ \"התחל מדידה\" והסתובב סביב האזור"
         }
         map = MapView(this).apply {
             setTileSource(TileSourceFactory.MAPNIK)
@@ -218,6 +219,7 @@ class MainActivity : Activity() {
             controller.setZoom(3.0)
             overlays.add(DataOverlay({ towers.values }, { me }))
             overlays.add(ScaleBarOverlay(this))
+            overlays.add(CopyrightOverlay(context))
             setOnTouchListener { _, _ -> lastTouch = System.currentTimeMillis(); false }
         }
         list = TextView(this).apply { setTextColor(Color.LTGRAY); textSize = 13f }
