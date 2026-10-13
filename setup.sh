@@ -100,7 +100,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import org.osmdroid.config.Configuration
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.tileprovider.tilesource.XYTileSource
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.CopyrightOverlay
@@ -211,10 +211,10 @@ class MainActivity : Activity() {
         }
         status = TextView(this).apply {
             setTextColor(Color.WHITE); textSize = 14f
-            text = "גרסה 2 - לחץ \"התחל מדידה\" והסתובב סביב האזור"
+            text = "גרסה 3 - לחץ \"התחל מדידה\" והסתובב סביב האזור"
         }
         map = MapView(this).apply {
-            setTileSource(TileSourceFactory.MAPNIK)
+            setTileSource(XYTileSource("CartoVoyager", 0, 20, 256, ".png", arrayOf("https://a.basemaps.cartocdn.com/rastertiles/voyager/", "https://b.basemaps.cartocdn.com/rastertiles/voyager/", "https://c.basemaps.cartocdn.com/rastertiles/voyager/", "https://d.basemaps.cartocdn.com/rastertiles/voyager/"), "© OpenStreetMap contributors © CARTO"))
             setMultiTouchControls(true)
             controller.setZoom(3.0)
             overlays.add(DataOverlay({ towers.values }, { me }))
